@@ -13,6 +13,7 @@ module.exports = {
   },
   validation: {
     exists: 'The %{attribute} must exists',
+    'not-exists': 'The %{attribute} is not exists',
     unique: 'The %{attribute} already exists',
     'not-empty': 'The %{attribute} cannot empty',
     email: 'The %{attribute} must be email',
@@ -20,6 +21,7 @@ module.exports = {
     integer: 'The %{attribute} must be integer',
     boolean: 'The %{attribute} must be boolean',
     jwt: 'The %{attribute} must be jwt',
+    mongoid: 'The %{attribute} must be mongoid',
     url: 'The %{attribute} must be url',
     length: 'The %{attribute} length is invalid',
     invalid: 'The %{attribute} is invalid',

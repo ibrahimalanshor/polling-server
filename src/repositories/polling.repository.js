@@ -23,7 +23,11 @@ function createPollingRepository({ pollingModel }) {
     });
   }
 
-  return { create, find, pushOptions };
+  async function exists(filter) {
+    return pollingModel.exists(filter);
+  }
+
+  return { create, find, pushOptions, exists };
 }
 
 module.exports = createPollingRepository;
