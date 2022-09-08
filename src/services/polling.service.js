@@ -1,10 +1,7 @@
-const slugify = require('slugify');
-
 function createPollingService({ pollingRepository, pollingOptionService }) {
   async function create(body) {
     const polling = await pollingRepository.create({
       name: body.name,
-      slug: slugify(body.name, { lower: true }),
     });
 
     await pollingOptionService.createMany(
