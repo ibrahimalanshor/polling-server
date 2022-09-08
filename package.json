@@ -1,0 +1,28 @@
+{
+  "name": "polling-server",
+  "version": "0.0.0",
+  "description": "Polling Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon",
+    "prepare": "husky install"
+  },
+  "author": "Ibrahim Al Anshor",
+  "license": "ISC",
+  "dependencies": {
+    "@ibrahimanshor/express-app": "^0.0.9"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.2",
+    "eslint": "^8.23.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "nodemon": "^2.0.19",
+    "prettier": "2.7.1"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
+  }
+}
