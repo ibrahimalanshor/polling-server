@@ -1,9 +1,11 @@
-const { createApp } = require('@ibrahimanshor/my-express');
+const { Container, createApp } = require('@ibrahimanshor/my-express');
 const config = require('./config');
 const setupMiddleware = require('./src/middlewares');
 const setupRoute = require('./src/routes');
 const messages = require('./resources/i18n');
 const { connect: connectDatabase } = require('./database');
+
+require('./src/providers');
 
 const app = createApp({
   env: config.env,
