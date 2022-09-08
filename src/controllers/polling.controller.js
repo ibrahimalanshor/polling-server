@@ -1,5 +1,5 @@
 const {
-  responses: { CreatedResponse },
+  responses: { SuccessResponse, CreatedResponse },
 } = require('@ibrahimanshor/my-express');
 
 function createPollingController({ pollingService }) {
@@ -13,7 +13,17 @@ function createPollingController({ pollingService }) {
     }
   }
 
-  return { create };
+  async function show(req, res, next) {
+    try {
+      const polling = await pollingService.find(req.params.id);
+
+      return new SuccessResponse('', polling).send(req, res);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  return { create, show };
 }
 
 module.exports = createPollingController;

@@ -4,17 +4,26 @@ function createPollingService({ pollingRepository, pollingOptionService }) {
       name: body.name,
     });
 
-    await pollingOptionService.createMany(
+    const pollingOptions = await pollingOptionService.createMany(
       body.options.map((option) => ({
         name: option.name,
         pollingId: polling.id,
       }))
     );
 
+    await pollingRepository.pushOptions(
+      polling,
+      pollingOptions.map((option) => option.id)
+    );
+
     return polling;
   }
 
-  return { create };
+  async function find(id) {
+    return await pollingRepository.find(id);
+  }
+
+  return { create, find };
 }
 
 module.exports = createPollingService;
