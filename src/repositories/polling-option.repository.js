@@ -3,7 +3,11 @@ function createPollingOptionRepository({ pollingOptionModel }) {
     return await pollingOptionModel.create(options);
   }
 
-  return { createMany };
+  async function exists(filter) {
+    return pollingOptionModel.exists(filter);
+  }
+
+  return { createMany, exists };
 }
 
 module.exports = createPollingOptionRepository;

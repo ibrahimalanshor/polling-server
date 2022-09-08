@@ -23,7 +23,11 @@ function createPollingService({ pollingRepository, pollingOptionService }) {
     return await pollingRepository.find(id);
   }
 
-  return { create, find };
+  async function exists(id) {
+    return await pollingRepository.exists({ _id: id });
+  }
+
+  return { create, find, exists };
 }
 
 module.exports = createPollingService;
