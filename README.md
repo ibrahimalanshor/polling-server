@@ -9,9 +9,6 @@ npm install
 Install Linters
 
 ```bash
-# if there is no repository
-git init
-
 npm run prepare
 
 # if pre-commit hooks is not executable
