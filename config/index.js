@@ -3,7 +3,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 module.exports = {
-  env: procss.env.NODE_ENV || 'development',
+  env: process.env.NODE_ENV || 'development',
   app: {
     port: process.env.APP_PORT || process.env.PORT || 4000,
     url: process.env.APP_URL || 'http://localhost:4000',

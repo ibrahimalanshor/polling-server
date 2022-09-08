@@ -11,7 +11,8 @@
   "author": "Ibrahim Al Anshor",
   "license": "ISC",
   "dependencies": {
-    "@ibrahimanshor/express-app": "^0.0.9"
+    "@ibrahimanshor/my-express": "^0.0.1",
+    "mongoose": "^6.5.5"
   },
   "devDependencies": {
     "dotenv": "^16.0.2",
