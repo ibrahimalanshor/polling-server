@@ -1,6 +1,6 @@
 const { body } = require('express-validator');
 
-function createPollingRequestCreate() {
+function createPollRequestCreate() {
   const rules = [
     body('name')
       .exists({ checkNull: true, checkFalsy: true })
@@ -34,4 +34,4 @@ function createPollingRequestCreate() {
   return { rules };
 }
 
-module.exports = createPollingRequestCreate;
+module.exports = createPollRequestCreate;

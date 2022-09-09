@@ -1,9 +1,9 @@
 const { Container } = require('@ibrahimanshor/my-express');
 
-const { PollingModel } = require('../models/polling');
-const { PollingOptionModel } = require('../models/polling-option');
-const { PollingAnswerModel } = require('../models/polling-answer');
+const { PollModel } = require('../models/poll');
+const { PollOptionModel } = require('../models/poll-option');
+const { PollAnswerModel } = require('../models/poll-answer');
 
-Container.register('PollingModel', PollingModel);
-Container.register('PollingOptionModel', PollingOptionModel);
-Container.register('PollingAnswerModel', PollingAnswerModel);
+Container.register('PollModel', PollModel);
+Container.register('PollOptionModel', PollOptionModel);
+Container.register('PollAnswerModel', PollAnswerModel);

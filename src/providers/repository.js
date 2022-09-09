@@ -1,15 +1,15 @@
 const { Container } = require('@ibrahimanshor/my-express');
 
-const createPollingRepository = require('../repositories/polling.repository.js');
-const createPollingOptionRepository = require('../repositories/polling-option.repository.js');
-const createPollingAnswerRepository = require('../repositories/polling-answer.repository.js');
+const createPollRepository = require('../repositories/poll.repository.js');
+const createPollOptionRepository = require('../repositories/poll-option.repository.js');
+const createPollAnswerRepository = require('../repositories/poll-answer.repository.js');
 
-Container.factory('PollingRepository', createPollingRepository, {
-  pollingModel: 'PollingModel',
+Container.factory('PollRepository', createPollRepository, {
+  pollModel: 'PollModel',
 });
-Container.factory('PollingOptionRepository', createPollingOptionRepository, {
-  pollingOptionModel: 'PollingOptionModel',
+Container.factory('PollOptionRepository', createPollOptionRepository, {
+  pollOptionModel: 'PollOptionModel',
 });
-Container.factory('PollingAnswerRepository', createPollingAnswerRepository, {
-  pollingAnswerModel: 'PollingAnswerModel',
+Container.factory('PollAnswerRepository', createPollAnswerRepository, {
+  pollAnswerModel: 'PollAnswerModel',
 });
