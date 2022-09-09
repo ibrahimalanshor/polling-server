@@ -1,11 +1,11 @@
 const { Container } = require('@ibrahimanshor/my-express');
 
-const createPollingController = require('../controllers/polling.controller.js');
-const createPollingAnswerController = require('../controllers/polling-answer.controller.js');
+const createPollController = require('../controllers/poll.controller.js');
+const createPollAnswerController = require('../controllers/poll-answer.controller.js');
 
-Container.factory('PollingController', createPollingController, {
-  pollingService: 'PollingService',
+Container.factory('PollController', createPollController, {
+  pollService: 'PollService',
 });
-Container.factory('PollingAnswerController', createPollingAnswerController, {
-  pollingAnswerService: 'PollingAnswerService',
+Container.factory('PollAnswerController', createPollAnswerController, {
+  pollAnswerService: 'PollAnswerService',
 });

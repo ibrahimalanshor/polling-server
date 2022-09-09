@@ -3,9 +3,9 @@ const {
 } = require('@ibrahimanshor/my-express');
 const { toObjectId } = require('../utils');
 
-function createPollingRepository({ pollingModel }) {
+function createPollRepository({ pollModel }) {
   async function create(body) {
-    return await pollingModel.create(body);
+    return await pollModel.create(body);
   }
 
   async function find(id) {
@@ -32,41 +32,41 @@ function createPollingRepository({ pollingModel }) {
       { $set: { countAnswers: '$answers.count' } },
       { $unset: 'answers' },
     ];
-    const countPollingAnswers = [{ $count: 'count' }, { $unwind: '$count' }];
-    const lookupPollingAnswers = {
+    const countPollAnswers = [{ $count: 'count' }, { $unwind: '$count' }];
+    const lookupPollAnswers = {
       $lookup: {
-        from: 'polling_answers',
+        from: 'poll_answers',
         localField: '_id',
-        foreignField: 'pollingOptionId',
+        foreignField: 'pollOptionId',
         as: 'answers',
-        pipeline: countPollingAnswers,
+        pipeline: countPollAnswers,
       },
     };
-    const lookupPollingOptions = {
+    const lookupPollOptions = {
       $lookup: {
-        from: 'polling_options',
+        from: 'poll_options',
         localField: '_id',
-        foreignField: 'pollingId',
+        foreignField: 'pollId',
         as: 'options',
-        pipeline: [lookupPollingAnswers, ...setCountAnswers],
+        pipeline: [lookupPollAnswers, ...setCountAnswers],
       },
     };
-    const polling = await pollingModel.aggregate([
+    const poll = await pollModel.aggregate([
       match,
-      lookupPollingOptions,
+      lookupPollOptions,
       setTotalAnswers,
     ]);
 
-    check.isNotFound(!polling[0]);
+    check.isNotFound(!poll[0]);
 
-    return polling[0];
+    return poll[0];
   }
 
   async function exists(filter) {
-    return pollingModel.exists(filter);
+    return pollModel.exists(filter);
   }
 
   return { create, find, exists };
 }
 
-module.exports = createPollingRepository;
+module.exports = createPollRepository;

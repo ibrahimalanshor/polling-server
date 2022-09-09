@@ -1,16 +1,10 @@
 const { Container } = require('@ibrahimanshor/my-express');
 
-const { createPollingRequestCreate } = require('../requests/polling');
-const {
-  createPollingAnswerRequestCreate,
-} = require('../requests/polling-answer');
+const { createPollRequestCreate } = require('../requests/poll');
+const { createPollAnswerRequestCreate } = require('../requests/poll-answer');
 
-Container.factory('PollingRequestCreate', createPollingRequestCreate);
-Container.factory(
-  'PollingAnswerRequestCreate',
-  createPollingAnswerRequestCreate,
-  {
-    pollingService: 'PollingService',
-    pollingOptionService: 'PollingOptionService',
-  }
-);
+Container.factory('PollRequestCreate', createPollRequestCreate);
+Container.factory('PollAnswerRequestCreate', createPollAnswerRequestCreate, {
+  pollService: 'PollService',
+  pollOptionService: 'PollOptionService',
+});

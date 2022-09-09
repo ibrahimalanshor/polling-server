@@ -1,11 +1,8 @@
 const { body } = require('express-validator');
 
-function createPollingAnswerRequestCreate({
-  pollingService,
-  pollingOptionService,
-}) {
+function createPollAnswerRequestCreate({ pollService, pollOptionService }) {
   const rules = [
-    body('pollingId')
+    body('pollId')
       .exists({ checkNull: true, checkFalsy: true })
       .bail()
       .withMessage('validation.exists')
@@ -16,7 +13,7 @@ function createPollingAnswerRequestCreate({
       .bail()
       .withMessage('validation.mongoid')
       .custom(async (val) => {
-        const exists = await pollingService.exists(val);
+        const exists = await pollService.exists(val);
 
         if (!exists) throw new Error();
 
@@ -24,7 +21,7 @@ function createPollingAnswerRequestCreate({
       })
       .bail()
       .withMessage('validation.not-exists'),
-    body('pollingOptionId')
+    body('pollOptionId')
       .exists({ checkNull: true, checkFalsy: true })
       .bail()
       .withMessage('validation.exists')
@@ -35,7 +32,7 @@ function createPollingAnswerRequestCreate({
       .bail()
       .withMessage('validation.mongoid')
       .custom(async (val) => {
-        const exists = await pollingOptionService.exists(val);
+        const exists = await pollOptionService.exists(val);
 
         if (!exists) throw new Error();
 
@@ -48,4 +45,4 @@ function createPollingAnswerRequestCreate({
   return { rules };
 }
 
-module.exports = createPollingAnswerRequestCreate;
+module.exports = createPollAnswerRequestCreate;
