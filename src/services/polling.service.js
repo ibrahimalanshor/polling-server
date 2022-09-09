@@ -4,16 +4,11 @@ function createPollingService({ pollingRepository, pollingOptionService }) {
       name: body.name,
     });
 
-    const pollingOptions = await pollingOptionService.createMany(
+    await pollingOptionService.createMany(
       body.options.map((option) => ({
         name: option.name,
         pollingId: polling.id,
       }))
-    );
-
-    await pollingRepository.pushOptions(
-      polling,
-      pollingOptions.map((option) => option.id)
     );
 
     return polling;

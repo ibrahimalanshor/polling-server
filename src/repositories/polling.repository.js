@@ -8,26 +8,21 @@ function createPollingRepository({ pollingModel }) {
   }
 
   async function find(id) {
-    const polling = await pollingModel.findById(id).populate('options');
+    const polling = await pollingModel.findById(id).populate({
+      path: 'options',
+      populate: 'countAnswers',
+    });
 
     check.isNotFound(polling === null);
 
     return polling;
   }
 
-  async function pushOptions(polling, options) {
-    return await polling.updateOne({
-      $push: {
-        options: { $each: options },
-      },
-    });
-  }
-
   async function exists(filter) {
     return pollingModel.exists(filter);
   }
 
-  return { create, find, pushOptions, exists };
+  return { create, find, exists };
 }
 
 module.exports = createPollingRepository;
