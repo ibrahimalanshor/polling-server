@@ -1,3 +1,7 @@
+const {
+  utils: { check },
+} = require('@ibrahimanshor/my-express');
+
 function createPollingOptionRepository({ pollingOptionModel }) {
   async function createMany(options) {
     return await pollingOptionModel.create(options);
@@ -7,7 +11,15 @@ function createPollingOptionRepository({ pollingOptionModel }) {
     return pollingOptionModel.exists(filter);
   }
 
-  return { createMany, exists };
+  async function find(id) {
+    const pollingOption = await pollingOptionModel.findById(id);
+
+    check.isNotFound(pollingOption === null);
+
+    return pollingOption;
+  }
+
+  return { createMany, exists, find };
 }
 
 module.exports = createPollingOptionRepository;
