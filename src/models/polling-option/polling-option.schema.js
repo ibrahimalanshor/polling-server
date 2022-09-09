@@ -11,7 +11,16 @@ const PollingOptionSchema = new Schema(
   {
     collection: 'polling_options',
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+PollingOptionSchema.virtual('countAnswers', {
+  ref: 'polling-answer',
+  localField: '_id',
+  foreignField: 'pollingOptionId',
+  count: true,
+});
 
 module.exports = PollingOptionSchema;
