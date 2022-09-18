@@ -11,7 +11,7 @@
   "author": "Ibrahim Al Anshor",
   "license": "ISC",
   "dependencies": {
-    "@ibrahimanshor/my-express": "^0.0.1",
+    "@ibrahimanshor/my-express": "^0.0.3",
     "mongoose": "^6.5.5",
     "slugify": "^1.6.5"
   },
