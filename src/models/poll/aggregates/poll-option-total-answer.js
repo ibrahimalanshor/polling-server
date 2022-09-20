@@ -12,11 +12,24 @@ module.exports = [
             localField: '_id',
             foreignField: 'pollOptionId',
             as: 'answers',
-            pipeline: [{ $count: 'count' }, { $unwind: '$count' }],
+            pipeline: [
+              { $count: 'count' },
+              { $unwind: { path: '$count', preserveNullAndEmptyArrays: true } },
+            ],
           },
         },
-        { $unwind: '$answers' },
-        { $set: { countAnswers: '$answers.count' } },
+        { $unwind: { path: '$answers', preserveNullAndEmptyArrays: true } },
+        {
+          $set: {
+            countAnswers: {
+              $cond: {
+                if: '$answers',
+                then: '$answers.count',
+                else: 0,
+              },
+            },
+          },
+        },
         { $unset: 'answers' },
       ],
     },
