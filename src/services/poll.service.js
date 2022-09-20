@@ -8,7 +8,7 @@ function createPollService({ pollRepository, pollOptionService }) {
       code,
     });
 
-    await pollOptionService.createMany(
+    await pollOptionService.create(
       body.options.map((option) => ({
         name: option.name,
         pollId: poll.id,
@@ -19,11 +19,15 @@ function createPollService({ pollRepository, pollOptionService }) {
   }
 
   async function findByCode(code) {
-    return await pollRepository.findByCode(code);
+    return await pollRepository
+      .get()
+      .byCode(code)
+      .withOptionAnswer()
+      .findOrFail();
   }
 
-  async function exists(id) {
-    return await pollRepository.exists({ _id: id });
+  async function exists({ id }) {
+    return await pollRepository.exists().byId(id).exists();
   }
 
   return { create, findByCode, exists };
