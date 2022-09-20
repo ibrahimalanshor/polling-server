@@ -3,8 +3,8 @@ function createPollOptionService({ pollOptionRepository }) {
     return await pollOptionRepository.createMany(options);
   }
 
-  async function exists(id) {
-    return await pollOptionRepository.exists({ _id: id });
+  async function exists({ id, pollId }) {
+    return await pollOptionRepository.exists().byId(id).byPoll(pollId).exists();
   }
 
   return { createMany, exists };

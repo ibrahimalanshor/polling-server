@@ -1,4 +1,7 @@
 const { body } = require('express-validator');
+const {
+  utils: { validators },
+} = require('@ibrahimanshor/my-express');
 
 function createPollAnswerRequestCreate({ pollService, pollOptionService }) {
   const rules = [
@@ -22,6 +25,7 @@ function createPollAnswerRequestCreate({ pollService, pollOptionService }) {
       .bail()
       .withMessage('validation.not-exists'),
     body('pollOptionId')
+      .if(validators.related('pollId'))
       .exists({ checkNull: true, checkFalsy: true })
       .bail()
       .withMessage('validation.exists')
@@ -31,8 +35,11 @@ function createPollAnswerRequestCreate({ pollService, pollOptionService }) {
       .isMongoId()
       .bail()
       .withMessage('validation.mongoid')
-      .custom(async (val) => {
-        const exists = await pollOptionService.exists(val);
+      .custom(async (val, { req }) => {
+        const exists = await pollOptionService.exists({
+          id: val,
+          pollId: req.body.pollId,
+        });
 
         if (!exists) throw new Error();
 
