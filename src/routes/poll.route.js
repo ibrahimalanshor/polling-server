@@ -9,5 +9,5 @@ module.exports = (app) => {
     createRequestValidator(Container.get('PollRequestCreate').rules),
     Container.get('PollController').create
   );
-  app.get('/polls/:id', Container.get('PollController').show);
+  app.get('/polls/:code', Container.get('PollController').show);
 };

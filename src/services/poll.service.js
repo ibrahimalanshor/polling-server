@@ -1,12 +1,11 @@
-const {
-  utils: { check },
-} = require('@ibrahimanshor/my-express');
-const { isValidObjectId } = require('../utils');
+const srs = require('secure-random-string');
 
 function createPollService({ pollRepository, pollOptionService }) {
   async function create(body) {
+    const code = await srs({ length: 10, alphanumeric: true });
     const poll = await pollRepository.create({
       name: body.name,
+      code,
     });
 
     await pollOptionService.createMany(
@@ -19,17 +18,15 @@ function createPollService({ pollRepository, pollOptionService }) {
     return poll;
   }
 
-  async function find(id) {
-    check.isNotFound(!isValidObjectId(id));
-
-    return await pollRepository.find(id);
+  async function findByCode(code) {
+    return await pollRepository.findByCode(code);
   }
 
   async function exists(id) {
     return await pollRepository.exists({ _id: id });
   }
 
-  return { create, find, exists };
+  return { create, findByCode, exists };
 }
 
 module.exports = createPollService;
