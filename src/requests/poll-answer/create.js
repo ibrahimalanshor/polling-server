@@ -16,7 +16,7 @@ function createPollAnswerRequestCreate({ pollService, pollOptionService }) {
       .bail()
       .withMessage('validation.mongoid')
       .custom(async (val) => {
-        const exists = await pollService.exists(val);
+        const exists = await pollService.exists({ id: val });
 
         if (!exists) throw new Error();
 
