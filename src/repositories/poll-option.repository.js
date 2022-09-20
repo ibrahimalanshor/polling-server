@@ -4,23 +4,15 @@ const {
 const { PollOptionExists } = require('../helpers/poll-option');
 
 function createPollOptionRepository({ pollOptionModel }) {
-  async function createMany(options) {
-    return await pollOptionModel.create(options);
+  async function create(body) {
+    return await pollOptionModel.create(body);
   }
 
   function exists() {
     return new PollOptionExists({ model: pollOptionModel });
   }
 
-  async function find(id) {
-    const pollOption = await pollOptionModel.findById(id);
-
-    check.isNotFound(pollOption === null);
-
-    return pollOption;
-  }
-
-  return { createMany, exists, find };
+  return { create, exists };
 }
 
 module.exports = createPollOptionRepository;
