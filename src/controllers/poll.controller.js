@@ -1,6 +1,8 @@
 const {
   responses: { SuccessResponse, CreatedResponse },
+  utils: { check },
 } = require('@ibrahimanshor/my-express');
+const { isValidObjectId, toObjectId } = require('../utils');
 
 function createPollController({ pollService }) {
   async function create(req, res, next) {
@@ -15,7 +17,9 @@ function createPollController({ pollService }) {
 
   async function show(req, res, next) {
     try {
-      const poll = await pollService.findByCode(req.params.code);
+      const poll = await pollService.findByCode(req.params.code, {
+        userIp: req.ip,
+      });
 
       return new SuccessResponse('', poll).send(req, res);
     } catch (err) {

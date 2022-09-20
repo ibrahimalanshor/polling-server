@@ -18,12 +18,14 @@ function createPollService({ pollRepository, pollOptionService }) {
     return poll;
   }
 
-  async function findByCode(code) {
-    return await pollRepository
-      .get()
-      .byCode(code)
-      .withOptionAnswer()
-      .findOrFail();
+  async function findByCode(code, { userIp }) {
+    const getPoll = pollRepository.get().byCode(code).withOptionAnswer();
+
+    if (userIp) {
+      getPoll.withUserAnswer({ userIp });
+    }
+
+    return await getPoll.findOrFail();
   }
 
   async function exists({ id }) {
