@@ -1,7 +1,6 @@
 const {
   utils: { check },
 } = require('@ibrahimanshor/my-express');
-const { toObjectId } = require('../utils');
 const { pollOptionTotalAnswer } = require('../models/poll/aggregates');
 
 function createPollRepository({ pollModel }) {
@@ -9,11 +8,9 @@ function createPollRepository({ pollModel }) {
     return await pollModel.create(body);
   }
 
-  async function find(id) {
+  async function findByCode(code) {
     const match = {
-      $match: {
-        _id: toObjectId(id),
-      },
+      $match: { code },
     };
     const poll = await pollModel.aggregate([match, ...pollOptionTotalAnswer]);
 
@@ -26,7 +23,7 @@ function createPollRepository({ pollModel }) {
     return pollModel.exists(filter);
   }
 
-  return { create, find, exists };
+  return { create, findByCode, exists };
 }
 
 module.exports = createPollRepository;

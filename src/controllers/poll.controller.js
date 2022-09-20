@@ -15,7 +15,7 @@ function createPollController({ pollService }) {
 
   async function show(req, res, next) {
     try {
-      const poll = await pollService.find(req.params.id);
+      const poll = await pollService.findByCode(req.params.code);
 
       return new SuccessResponse('', poll).send(req, res);
     } catch (err) {
