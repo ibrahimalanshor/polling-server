@@ -1,8 +1,6 @@
 const {
   responses: { SuccessResponse, CreatedResponse },
-  utils: { check },
 } = require('@ibrahimanshor/my-express');
-const { isValidObjectId, toObjectId } = require('../utils');
 
 function createPollController({ pollService }) {
   async function create(req, res, next) {
