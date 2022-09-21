@@ -29,7 +29,7 @@ function createPollService({ pollRepository, pollOptionService }) {
   }
 
   async function exists({ id }) {
-    return await pollRepository.exists().byId(id).exists();
+    return await pollRepository.get().byId(id).exists();
   }
 
   return { create, findByCode, exists };

@@ -2,7 +2,7 @@ const { ModelGet } = require('../base/model');
 const { pollOptionTotalAnswer, pollUserIpAnswer } = require('./aggregates');
 
 function PollGet({ model }) {
-  ModelGet.call(this, model);
+  ModelGet.call(this, model, { useAggregate: true });
 }
 
 PollGet.prototype = Object.create(ModelGet.prototype, {
@@ -19,6 +19,14 @@ PollGet.prototype.byCode = function (code) {
   return this;
 };
 
+PollGet.prototype.byId = function (id) {
+  this.aggregate.push({
+    $match: { _id: id },
+  });
+
+  return this;
+};
+
 PollGet.prototype.withOptionAnswer = function () {
   this.aggregate.push(...pollOptionTotalAnswer);
 
@@ -27,10 +35,6 @@ PollGet.prototype.withOptionAnswer = function () {
 
 PollGet.prototype.withUserAnswer = function ({ userIp }) {
   this.aggregate.push(...pollUserIpAnswer(userIp));
-};
-
-PollGet.prototype.findOrFail = async function () {
-  return await ModelGet.prototype.findOrFail.call(this, { useAggregate: true });
 };
 
 module.exports = PollGet;

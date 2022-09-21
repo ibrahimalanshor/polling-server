@@ -1,18 +1,18 @@
 const {
   utils: { check },
 } = require('@ibrahimanshor/my-express');
-const { PollOptionExists } = require('../helpers/poll-option');
+const { PollOptionExists, PollOptionGet } = require('../helpers/poll-option');
 
 function createPollOptionRepository({ pollOptionModel }) {
   async function create(body) {
     return await pollOptionModel.create(body);
   }
 
-  function exists() {
+  function get() {
     return new PollOptionExists({ model: pollOptionModel });
   }
 
-  return { create, exists };
+  return { create, get };
 }
 
 module.exports = createPollOptionRepository;

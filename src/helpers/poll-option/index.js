@@ -1,1 +1,1 @@
-exports.PollOptionExists = require('./exists.js');
+exports.PollOptionGet = require('./get.js');

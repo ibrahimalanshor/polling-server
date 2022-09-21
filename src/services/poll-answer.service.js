@@ -14,7 +14,7 @@ function createPollAnswerService({ pollAnswerRepository }) {
 
   async function checkUserAlreadyAnsweredByIp({ pollId, userIp }) {
     const exists = await pollAnswerRepository
-      .exists()
+      .get()
       .byPoll(pollId)
       .byUser({ userIp })
       .exists();
