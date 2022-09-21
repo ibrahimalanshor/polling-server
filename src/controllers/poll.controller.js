@@ -5,7 +5,10 @@ const {
 function createPollController({ pollService }) {
   async function create(req, res, next) {
     try {
-      const poll = await pollService.create(req.body);
+      const poll = await pollService.create({
+        ...req.body,
+        userIp: req.ip,
+      });
 
       return new CreatedResponse('', poll).send(req, res);
     } catch (err) {

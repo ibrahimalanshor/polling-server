@@ -5,6 +5,7 @@ function createPollService({ pollRepository, pollOptionService }) {
     const code = await srs({ length: 10, alphanumeric: true });
     const poll = await pollRepository.create({
       name: body.name,
+      userIp: body.userIp,
       code,
     });
 
@@ -24,6 +25,8 @@ function createPollService({ pollRepository, pollOptionService }) {
     if (userIp) {
       getPoll.withUserAnswer({ userIp });
     }
+
+    getPoll.excludeUserIp();
 
     return await getPoll.findOrFail();
   }

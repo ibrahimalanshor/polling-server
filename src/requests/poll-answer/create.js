@@ -38,8 +38,8 @@ function createPollAnswerRequestCreate({ pollService, pollOptionService }) {
       .withMessage('validation.mongoid')
       .custom(async (val, { req }) => {
         const exists = await pollOptionService.exists({
-          id: val,
-          pollId: req.body.pollId,
+          id: toObjectId(val),
+          pollId: toObjectId(req.body.pollId),
         });
 
         if (!exists) throw new Error();
