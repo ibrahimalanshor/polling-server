@@ -1,3 +1,6 @@
+const {
+  utils: { database },
+} = require('@ibrahimanshor/my-express');
 const srs = require('secure-random-string');
 
 function createPollService({ pollRepository, pollOptionService }) {
@@ -35,7 +38,32 @@ function createPollService({ pollRepository, pollOptionService }) {
     return await pollRepository.get().byId(id).exists();
   }
 
-  return { create, findByCode, exists };
+  async function get(filter = {}) {
+    const query = pollRepository
+      .get()
+      .search({ code: filter.code, name: filter.name });
+    const paginate = database.paginate({
+      page: filter.page,
+      limit: filter.limit,
+    });
+
+    const docsQuery = query.clone();
+    const countQuery = query.clone();
+
+    if (filter.sort) {
+      docsQuery.sort(filter.sort);
+    }
+
+    const docs = await docsQuery
+      .paginate({ skip: paginate.offset, limit: paginate.limit })
+      .withOptionAnswer()
+      .findAll();
+    const count = await countQuery.count();
+
+    return { count, docs };
+  }
+
+  return { create, findByCode, exists, get };
 }
 
 module.exports = createPollService;

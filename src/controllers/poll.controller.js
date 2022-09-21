@@ -28,7 +28,17 @@ function createPollController({ pollService }) {
     }
   }
 
-  return { create, show };
+  async function get(req, res, next) {
+    try {
+      const polls = await pollService.get(req.query);
+
+      return new SuccessResponse('', polls).send(req, res);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  return { create, show, get };
 }
 
 module.exports = createPollController;

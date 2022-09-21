@@ -27,6 +27,36 @@ PollGet.prototype.byId = function (id) {
   return this;
 };
 
+PollGet.prototype.searchCode = function (code) {
+  ModelGet.prototype.match.call(this, 'code', {
+    $regex: code,
+    $options: 'i',
+  });
+
+  return this;
+};
+
+PollGet.prototype.searchName = function (name) {
+  ModelGet.prototype.match.call(this, 'name', {
+    $regex: name,
+    $options: 'i',
+  });
+
+  return this;
+};
+
+PollGet.prototype.search = function ({ code, name }) {
+  if (code) {
+    this.searchCode(code);
+  }
+
+  if (name) {
+    this.searchName(name);
+  }
+
+  return this;
+};
+
 PollGet.prototype.withOptionAnswer = function () {
   this.aggregate.push(...pollOptionTotalAnswer);
 

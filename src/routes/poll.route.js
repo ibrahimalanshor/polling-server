@@ -4,6 +4,7 @@ const {
 } = require('@ibrahimanshor/my-express');
 
 module.exports = (app) => {
+  app.get('/polls', Container.get('PollController').get);
   app.post(
     '/polls',
     createRequestValidator(Container.get('PollRequestCreate').rules),
