@@ -9,7 +9,7 @@ require('./src/providers');
 
 const app = createApp({
   env: config.env,
-  port: config.port,
+  port: config.app.port,
   setupRoute,
   setupMiddleware,
   messages,
@@ -17,7 +17,9 @@ const app = createApp({
 
 const start = async () => {
   try {
-    await connectDatabase(config.db.mongodb.url);
+    await connectDatabase(config.db.mongodb.url, {
+      debug: config.env === 'development',
+    });
 
     app.run();
   } catch (err) {
