@@ -37,4 +37,10 @@ PollGet.prototype.withUserAnswer = function ({ userIp }) {
   this.aggregate.push(...pollUserIpAnswer(userIp));
 };
 
+PollGet.prototype.excludeUserIp = function () {
+  this.aggregate.push({
+    $unset: 'userIp',
+  });
+};
+
 module.exports = PollGet;
