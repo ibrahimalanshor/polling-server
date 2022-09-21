@@ -7,6 +7,7 @@ const PollSchema = new Schema(
       type: String,
       unique: true,
     },
+    userIp: String,
   },
   {
     timestamps: true,
