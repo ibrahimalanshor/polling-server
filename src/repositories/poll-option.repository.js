@@ -1,7 +1,7 @@
 const {
   utils: { check },
 } = require('@ibrahimanshor/my-express');
-const { PollOptionExists, PollOptionGet } = require('../helpers/poll-option');
+const { PollOptionGet } = require('../helpers/poll-option');
 
 function createPollOptionRepository({ pollOptionModel }) {
   async function create(body) {
@@ -9,7 +9,7 @@ function createPollOptionRepository({ pollOptionModel }) {
   }
 
   function get() {
-    return new PollOptionExists({ model: pollOptionModel });
+    return new PollOptionGet({ model: pollOptionModel });
   }
 
   return { create, get };
