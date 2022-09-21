@@ -1,15 +1,15 @@
-const { PollAnswerExists } = require('../helpers/poll-answer');
+const { PollAnswerGet } = require('../helpers/poll-answer');
 
 function createPollAnswerRepository({ pollAnswerModel }) {
   async function create(body) {
     return await pollAnswerModel.create(body);
   }
 
-  function exists() {
-    return new PollAnswerExists({ model: pollAnswerModel });
+  function get() {
+    return new PollAnswerGet({ model: pollAnswerModel });
   }
 
-  return { create, exists };
+  return { create, get };
 }
 
 module.exports = createPollAnswerRepository;

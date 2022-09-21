@@ -2,6 +2,7 @@ const { body } = require('express-validator');
 const {
   utils: { validators },
 } = require('@ibrahimanshor/my-express');
+const { toObjectId } = require('../../utils');
 
 function createPollAnswerRequestCreate({ pollService, pollOptionService }) {
   const rules = [
@@ -16,7 +17,7 @@ function createPollAnswerRequestCreate({ pollService, pollOptionService }) {
       .bail()
       .withMessage('validation.mongoid')
       .custom(async (val) => {
-        const exists = await pollService.exists({ id: val });
+        const exists = await pollService.exists({ id: toObjectId(val) });
 
         if (!exists) throw new Error();
 

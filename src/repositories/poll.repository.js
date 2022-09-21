@@ -1,4 +1,4 @@
-const { PollExists, PollGet } = require('../helpers/poll');
+const { PollGet } = require('../helpers/poll');
 
 function createPollRepository({ pollModel }) {
   async function create(body) {
@@ -9,11 +9,7 @@ function createPollRepository({ pollModel }) {
     return new PollGet({ model: pollModel });
   }
 
-  function exists() {
-    return new PollExists({ model: pollModel });
-  }
-
-  return { create, get, exists };
+  return { create, get };
 }
 
 module.exports = createPollRepository;
